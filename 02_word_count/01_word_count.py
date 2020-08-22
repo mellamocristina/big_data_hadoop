@@ -1,0 +1,23 @@
+from mrjob.job import MRJob
+from mrjob.step import MRStep
+
+class MRWordCount(MRJob):
+
+    def mapper(self, _, line):
+        #line.split()
+        words = line.split()
+        for word in words:
+
+            yield word.lower(), 1
+
+    def reducer(self, key, values):
+        yield key,sum(values)
+
+if __name__ == '__main__':
+    MRWordCount.run()
+
+
+# przechodzenie do innego folderu
+# cd ./../02_word_count
+
+# python 01_word_count.py ilada.txt
